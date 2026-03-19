@@ -1,43 +1,43 @@
-# Guía de Uso - Sistema de Detección de Patrones
+# Usage Guide - Pattern Detection System
 
-## �� Objetivo
+## 🎯 Objective
 
-Este sistema analiza JSONs de niveles de Candy Crush Soda Saga, descubriendo patrones de forma progresiva mediante 4 pasadas de análisis cada vez más detalladas.
+This system analyzes JSONs of Candy Crush Soda Saga levels, discovering patterns progressively through 4 increasingly detailed analysis passes.
 
-## 📋 Paso a Paso
+## 📋 Step by Step
 
-### Paso 1: Preparación
+### Step 1: Preparation
 
 ```bash
-cd idea
+cd patterns
 pip install -r requirements.txt
 ```
 
-### Paso 2: Usa la CLI (Opción Recomendada)
+### Step 2: Use the CLI (Recommended Option)
 
 ```bash
 python3 cli.py
 ```
 
-**Flujo típico:**
-1. Opción **1**: Carga niveles (10 en 10 para evitar problemas)
-2. Opción **2**: Ejecuta análisis por pasada
-3. Opción **3**: Ver progreso en barras visuales
-4. Opción **4**: Ejecuta todas las pasadas automáticamente
+**Typical flow:**
+1. Option **1**: Load levels (10 at a time to avoid issues)
+2. Option **2**: Run analysis by pass
+3. Option **3**: View progress in visual bars
+4. Option **4**: Run all passes automatically
 
-### Paso 3 (Alternativo): Usa el API
+### Step 3 (Alternative): Use the API
 
 ```bash
-# Terminal 1: Inicia servidor
+# Terminal 1: Start server
 python3 -m uvicorn api.main:app --host 0.0.0.0 --port 8000
 
-# Terminal 2: Realiza requests
+# Terminal 2: Make requests
 curl -X POST http://localhost:8000/analysis/load-levels?limit=50
 curl -X POST http://localhost:8000/analysis/run-pass/1
 curl http://localhost:8000/analysis/progress
 ```
 
-## 📊 Interpretación de Resultados
+## 📊 Results Interpretation
 
 ### Progress Bar (CLI)
 ```
@@ -47,61 +47,61 @@ Pass 3: [░░░░░░░░░░░░░░░░░░░░] 0.0% (0/2
 Pass 4: [░░░░░░░░░░░░░░░░░░░░] 0.0% (0/200)
 ```
 
-- `████` = Completado
-- `░░░░` = Pendiente
-- Porcentaje = % de niveles analizados en esa pasada
+- `████` = Completed
+- `░░░░` = Pending
+- Percentage = % of levels analyzed in that pass
 
 ### Average Passes
-- **0.0**: Nada analizado
-- **1.0-2.0**: Primeras pasadas en progreso
-- **4.0-5.0**: Sistema completamente analizado
+- **0.0**: Nothing analyzed
+- **1.0-2.0**: First passes in progress
+- **4.0-5.0**: System completely analyzed
 
-## 🔍 Qué Se Detecta en Cada Pasada
+## 🔍 What's Detected in Each Pass
 
-### Pasada 1: Estructura
-- Tamaño del tablero (7x7, 6x5, etc.)
-- Tipo de modo (Giant Bears, Soda, etc.)
-- Número de movimientos
-- Estrellas y puntuación
+### Pass 1: Structure
+- Board size (7x7, 6x5, etc.)
+- Mode type (Giant Bears, Soda, etc.)
+- Number of moves
+- Stars and scoring
 
-### Pasada 2: Gameplay
-- Número de spawners
-- Tipos de gravedad
-- Caramelos especiales disponibles
+### Pass 2: Gameplay
+- Number of spawners
+- Gravity types
+- Available special candies
 
-### Pasada 3: Bloqueadores
-- Tipos: hielo, chocolate, etc.
-- Densidad en el tablero
-- Complejidad de obstáculos
+### Pass 3: Blockers
+- Types: ice, chocolate, etc.
+- Board density
+- Obstacle complexity
 
-### Pasada 4: Avanzado
-- Cámaras múltiples
-- Niveles con scroll
-- Portales y mecanismos especiales
+### Pass 4: Advanced
+- Multiple cameras
+- Scrolling levels
+- Portals and special mechanisms
 
-## 💡 Consejos
+## 💡 Tips
 
-1. **Comienza pequeño**: Carga 10-50 niveles primero para probar
-2. **Monitorea progreso**: Usa opción 3 para ver avance
-3. **Pausa si es necesario**: El sistema retomará de donde paró
-4. **Para grandes cantidades**: Usa CLI, es más estable
+1. **Start small**: Load 10-50 levels first to test
+2. **Monitor progress**: Use option 3 to see progress
+3. **Pause if needed**: The system will resume where it left off
+4. **For large amounts**: Use CLI, it's more stable
 
 ## 🐛 Troubleshooting
 
-| Problema | Solución |
-|----------|----------|
-| API se cierra | Usa CLI en lugar de API para cargas grandes |
-| Niveles lentos | Reduce `limit` en load-levels a 20-30 |
-| Errores de BD | Borra `candy_patterns.db` y reinicia |
+| Problem | Solution |
+|---------|----------|
+| API closes | Use CLI instead of API for large loads |
+| Slow levels | Reduce `limit` in load-levels to 20-30 |
+| DB errors | Delete `patterns.db` and restart |
 
-## 📈 Escala
+## 📈 Scale
 
-Sistema probado con:
-- ✓ 100 niveles
-- ✓ 200 niveles
-- ✓ Carga incremental
-- ✓ Análisis completo (4 pasadas)
+System tested with:
+- ✓ 100 levels
+- ✓ 200 levels
+- ✓ Incremental loading
+- ✓ Complete analysis (4 passes)
 
 ---
 
-**¡Listo! El sistema está funcionando correctamente.**
+**Ready! The system is working correctly.**
