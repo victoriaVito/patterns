@@ -1,92 +1,92 @@
 # Candy Crush Pattern Detection System
 
-Un sistema inteligente de análisis y detección de patrones en niveles de **Candy Crush Soda Saga** que utiliza un enfoque de **múltiples pasadas** para descubrir patrones progresivamente, de mayor a menor detalle.
+An intelligent analysis and pattern detection system for **Candy Crush Soda Saga** levels using a **multi-pass approach** to progressively discover patterns, from high-level to granular details.
 
-## 🎯 Características
+## 🎯 Features
 
-### Sistema de 5 Pasadas de Análisis
-El sistema analiza cada nivel de forma iterativa, mejorando el detalle con cada pasada:
+### 5-Pass Analysis System
+The system analyzes each level iteratively, improving detail with each pass:
 
-1. **Pasada 1: Estructura General**
-   - Dimensiones del tablero
-   - Disposición y layouts
-   - Modos de juego
-   - Mecánicas de puntuación
+1. **Pass 1: General Structure**
+   - Board dimensions
+   - Layout and arrangements
+   - Game modes
+   - Scoring mechanics
 
-2. **Pasada 2: Mecánicas de Gameplay**
-   - Patrones de gameplay
-   - Spawners y posiciones
-   - Gravedad y física
-   - Caramelos especiales
+2. **Pass 2: Gameplay Mechanics**
+   - Gameplay patterns
+   - Spawners and positions
+   - Gravity and physics
+   - Special candies
 
-3. **Pasada 3: Bloqueadores y Obstáculos**
-   - Tipos de bloqueadores
-   - Densidad de obstáculos
-   - Distribución de patrones
-   - Reglas de interacción
+3. **Pass 3: Blockers and Obstacles**
+   - Blocker types
+   - Obstacle density
+   - Pattern distribution
+   - Interaction rules
 
-4. **Pasada 4: Mecánicas Avanzadas**
-   - Cámaras múltiples
-   - Niveles con scroll
-   - Portales y mecanismos
-   - Complejidad de control
+4. **Pass 4: Advanced Mechanics**
+   - Multiple cameras
+   - Scrolling levels
+   - Portals and mechanisms
+   - Control complexity
 
-5. **Pasada 5: Análisis Correlacional**
-   - Correlaciones entre características
-   - Clustering de niveles similares
-   - Detección de anomalías
-   - Recomendaciones de dificultad
+5. **Pass 5: Correlation Analysis**
+   - Correlations between features
+   - Level clustering
+   - Anomaly detection
+   - Difficulty recommendations
 
-### Tracking de Análisis
-- Cada nivel registra cuáles pasadas ha completado
-- Visualización de progreso en tiempo real
-- Estadísticas por pasada
-- Promedio de pasadas completadas
+### Analysis Tracking
+- Each level tracks which passes have been completed
+- Real-time progress visualization
+- Statistics per pass
+- Average passes completed
 
-## 📂 Estructura del Proyecto
+## 📂 Project Structure
 
 ```
-idea/
-├── api/                      # API REST con FastAPI
-│   ├── main.py              # Aplicación principal
-│   ├── routes_levels.py     # Endpoints de niveles
-│   ├── routes_analysis.py   # Endpoints de análisis
-│   └── schemas.py           # Schemas Pydantic
-├── analyzer/                # Motor de análisis
-│   ├── json_loader.py       # Cargador de JSONs
-│   ├── pattern_detector.py  # Detector de patrones (5 pasadas)
-│   └── level_analyzer.py    # Orquestador de análisis
-├── db/                      # Base de datos
-│   └── models.py            # Modelos SQLAlchemy
-├── cli.py                   # Interfaz CLI interactiva
-├── config.py                # Configuración
-├── requirements.txt         # Dependencias Python
-└── candy_patterns.db        # Base de datos SQLite (se crea automáticamente)
+patterns/
+├── api/                      # FastAPI REST API
+│   ├── main.py              # Main application
+│   ├── routes_levels.py     # Level endpoints
+│   ├── routes_analysis.py   # Analysis endpoints
+│   └── schemas.py           # Pydantic schemas
+├── analyzer/                # Analysis engine
+│   ├── json_loader.py       # JSON loader
+│   ├── pattern_detector.py  # Pattern detector (5 passes)
+│   └── level_analyzer.py    # Analysis orchestrator
+├── db/                      # Database
+│   └── models.py            # SQLAlchemy models
+├── cli.py                   # Interactive CLI
+├── config.py                # Configuration
+├── requirements.txt         # Python dependencies
+└── patterns.db              # SQLite database (auto-created)
 ```
 
-## 🚀 Uso Rápido
+## 🚀 Quick Start
 
-### 1. Instalación
+### 1. Installation
 
 ```bash
-cd idea
+cd patterns
 pip install -r requirements.txt
 ```
 
-### 2. CLI Interactiva (Recomendado)
+### 2. Interactive CLI (Recommended)
 
 ```bash
 python3 cli.py
 ```
 
-Menú interactivo con opciones:
-- **1**: Cargar niveles (10 en 10)
-- **2**: Ejecutar una pasada específica
-- **3**: Ver progreso del análisis
-- **4**: Ejecutar todas las 4 pasadas
-- **5**: Salir
+Interactive menu with options:
+- **1**: Load levels (10 at a time)
+- **2**: Run specific pass
+- **3**: View analysis progress
+- **4**: Run all 4 passes
+- **5**: Exit
 
-**Ejemplo:**
+**Example:**
 ```
 Select option (1-5): 1
 Current levels in DB: 0
@@ -104,41 +104,41 @@ Total progress: 100/100 (100.0%)
 ✓ All passes completed!
 ```
 
-### 3. API REST
+### 3. REST API
 
-Iniciar servidor:
+Start server:
 ```bash
 python3 -m uvicorn api.main:app --host 0.0.0.0 --port 8000
 ```
 
-Acceso:
-- Documentación interactiva: http://localhost:8000/docs
-- Especificación OpenAPI: http://localhost:8000/openapi.json
+Access:
+- Interactive docs: http://localhost:8000/docs
+- OpenAPI spec: http://localhost:8000/openapi.json
 
-**Endpoints principales:**
+**Main endpoints:**
 
 ```bash
-# Cargar niveles
+# Load levels
 POST /analysis/load-levels?limit=50
 
-# Ejecutar análisis
+# Run analysis
 POST /analysis/run-pass/1           # Pass 1
 POST /analysis/run-pass/2           # Pass 2
-POST /analysis/run-all-passes       # Todas las 4
+POST /analysis/run-all-passes       # All passes
 
-# Ver progreso
+# View progress
 GET /analysis/progress
 
-# Estadísticas
+# Statistics
 GET /analysis/stats
 
-# Obtener patrones de un nivel
+# Get patterns for a level
 GET /levels/1?level_id=199850
 ```
 
-## 📊 Ejemplo de Salida
+## 📊 Output Example
 
-### Progreso de Análisis
+### Analysis Progress
 ```
 Total levels: 200
 ==================================================
@@ -151,7 +151,7 @@ Pass 4: [████████████████████] 100.0% (2
 Average passes per level: 4.0
 ```
 
-### Estadísticas API
+### API Statistics
 ```json
 {
   "summary": {
@@ -179,73 +179,73 @@ Average passes per level: 4.0
 }
 ```
 
-## 🗄️ Base de Datos
+## 🗄️ Database
 
-SQLite con tablas:
+SQLite with tables:
 
-- **levels**: Metadatos de niveles con tracking de pasadas completadas
-- **level_raw_data**: Datos JSON raw almacenados de forma eficiente
-- **level_analyses**: Resultados de cada análisis por pasada
-- **patterns**: Definiciones de patrones
-- **pattern_instances**: Mapeos nivel↔patrón
-- **global_statistics**: Estadísticas globales del sistema
+- **levels**: Level metadata with pass tracking
+- **level_raw_data**: Raw JSON data (efficient storage)
+- **level_analyses**: Results for each analysis pass
+- **patterns**: Pattern definitions
+- **pattern_instances**: Level↔pattern mappings
+- **global_statistics**: System-wide statistics
 
-## 🔧 Configuración
+## 🔧 Configuration
 
-Archivo `.env`:
+File `.env`:
 ```env
-DATABASE_URL=sqlite:///./candy_patterns.db
+DATABASE_URL=sqlite:///./patterns.db
 API_HOST=0.0.0.0
 API_PORT=8000
 DEBUG=true
-JSON_INPUT_PATH=/ruta/a/niveles/json
+JSON_INPUT_PATH=/path/to/level/json
 ```
 
-## 📈 Rendimiento
+## 📈 Performance
 
-- **Carga**: ~10 niveles por segundo
-- **Análisis (Pass 1)**: ~30 niveles por segundo
-- **Análisis (Pass 2-4)**: ~20 niveles por segundo
-- **Batching**: 10 en 10 para evitar timeouts
-- **BD**: SQLite optimizada con índices
+- **Loading**: ~10 levels per second
+- **Analysis (Pass 1)**: ~30 levels per second
+- **Analysis (Pass 2-4)**: ~20 levels per second
+- **Batching**: 10 at a time to avoid timeouts
+- **DB**: SQLite optimized with indexes
 
-## 🎮 Patrones Detectados
+## 🎮 Detected Patterns
 
-### Dimensiones del Tablero
+### Board Dimensions
 - 6x5, 7x6, 8x5, etc.
-- Layouts regulares e irregulares
+- Regular and irregular layouts
 
-### Mecánicas
+### Mechanics
 - Giant Bears, Soda, Timed modes
-- Spawners y cámaras
-- Tipos de gravedad
+- Spawners and cameras
+- Gravity types
 
-### Bloqueadores
-- Hielo, Chocolate, Caramelo pegajoso
-- Densidad y distribución
-- Complejidad
+### Blockers
+- Ice, Chocolate, Licorice
+- Density and distribution
+- Complexity
 
-### Avanzados
+### Advanced
 - Scroll levels
-- Múltiples áreas de juego
-- Portales y tubos
+- Multiple play areas
+- Portals and tubes
 
-## 📝 Notas
+## 📝 Notes
 
-- El sistema es completamente autónomo y reanudable
-- Cada pasada es independiente y puede ejecutarse por separado
-- Los niveles ya analizados no se reprocesanon
-- Compatible con archivos JSON de Candy Crush Soda Saga LIVE
-- Sin dependencias externas (usa SQLite nativo)
+- The system is completely autonomous and resumable
+- Each pass is independent and can run separately
+- Already analyzed levels are not reprocessed
+- Compatible with Candy Crush Soda Saga LIVE JSON files
+- No external dependencies (uses native SQLite)
 
-## 🚀 Próximas Mejoras
+## 🚀 Future Improvements
 
-- [ ] Exportación de resultados (CSV, JSON)
-- [ ] Dashboard web con visualización
-- [ ] Machine learning para clustering automático
-- [ ] Recomendaciones de dificultad
-- [ ] Análisis predictivo
+- [ ] Export results (CSV, JSON)
+- [ ] Web dashboard with visualization
+- [ ] Machine learning for automatic clustering
+- [ ] Difficulty recommendations
+- [ ] Predictive analysis
 
 ---
 
-**Sistema creado para análisis avanzado de niveles de Candy Crush Soda Saga**
+**Advanced level analysis system for Candy Crush Soda Saga**
